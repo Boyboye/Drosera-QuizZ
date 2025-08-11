@@ -1,0 +1,50 @@
+import { useState } from 'react';
+import QuestionCard from '@/components/QuestionCard';
+import questionsData from '@/data/questions';
+
+export default function Home() {
+  const shuffledQuestions = [...questionsData].sort(() => Math.random() - 0.5);
+  const [current, setCurrent] = useState(0);
+  const [score, setScore] = useState(0);
+  const [finished, setFinished] = useState(false);
+
+  const handleAnswer = (choice) => {
+    if (choice === shuffledQuestions[current].answer) {
+      setScore(score + 1);
+    }
+    if (current + 1 < shuffledQuestions.length) {
+      setCurrent(current + 1);
+    } else {
+      setFinished(true);
+    }
+  };
+
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-10">
+      <img
+        src="https://drosera.network/logo.svg"
+        alt="Drosera Logo"
+        className="w-28 mb-6"
+      />
+      <h1 className="text-3xl font-bold text-droseraGreen mb-8">Drosera Quiz</h1>
+
+      {finished ? (
+        <div className="text-center">
+          <p className="text-xl mb-4">You scored {score} / {shuffledQuestions.length}</p>
+          <button
+            className="px-6 py-3 bg-droseraPurple rounded-lg"
+            onClick={() => {
+              setScore(0);
+              setCurrent(0);
+              setFinished(false);
+            }}
+          >
+            Play Again
+          </button>
+        </div>
+      ) : (
+        <QuestionCard question={shuffledQuestions[current]} onAnswer={handleAnswer} />
+      )}
+    </main>
+  );
+}
