@@ -1,0 +1,33 @@
+import { useState } from 'react';
+
+export default function QuestionCard({ question, onAnswer }) {
+  const [selected, setSelected] = useState(null);
+
+  const handleSelect = (index) => {
+    setSelected(index);
+    setTimeout(() => onAnswer(index), 800);
+  };
+
+  return (
+    <div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-droseraPurple max-w-xl mx-auto">
+      <h2 className="text-xl font-bold mb-4">{question.question}</h2>
+      <div className="space-y-3">
+        {question.options.map((option, idx) => (
+          <button
+            key={idx}
+            onClick={() => handleSelect(idx)}
+            className={`w-full p-3 rounded-lg text-left border transition ${
+              selected === idx
+                ? idx === question.answer
+                  ? 'bg-green-600 border-green-400'
+                  : 'bg-red-600 border-red-400'
+                : 'bg-gray-800 border-gray-700 hover:bg-gray-700'
+            }`}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
