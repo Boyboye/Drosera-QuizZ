@@ -1,0 +1,15 @@
+drosera-quiz/
+ ├─ pages/
+ │   ├─ index.js
+ │   ├─ _app.js
+ │   └─ _document.js
+ ├─ components/
+ │   ├─ QuestionCard.js
+ ├─ data/
+ │   ├─ questions.js
+ ├─ public/
+ ├─ package.json
+ ├─ tailwind.config.js
+ ├─ postcss.config.js
+ ├─ styles/
+ │   ├─ globals.css
